@@ -1,12 +1,22 @@
 require 'neovim'
 
-$serverPid, $browserPid = nil
+serverPid, browserPid = nil
 port = 8080
 
 Neovim.plugin do |plug|
-  plug.command(:P5start) do |nvim|
+  plug.command(:Preview) do |nvim|
     dir = nvim.command_output(:pwd)
-    $serverPid = Process.spawn("browser-sync start --no-open --no-ui --no-notify --port #{port} -w -f --server #{dir}")
-    $browserPid = Process.spawn("chromium --app=http://localhost:#{port}")
+  
+    if serverPid == nil
+      server = ::IO.popen("browser-sync start --no-open --no-ui --no-notify --port #{port} -w -f --server #{dir}")
+      serverPid = server.pid
+      Process.detach(serverPid)
+    end
+
+    if browserPid == nil
+      browser = ::IO.popen("chromium --app=http://localhost:#{port}")
+      browserPid = browser.pid
+      Process.detach(browserPid)
+    end
   end
 end
