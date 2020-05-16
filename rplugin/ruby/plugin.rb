@@ -4,7 +4,7 @@ serverPid, browserPid = nil
 port = 8080
 
 Neovim.plugin do |plug|
-  plug.command(:Preview) do |nvim|
+  plug.command(:SketchPreview) do |nvim|
     dir = nvim.command_output(:pwd)
   
     if serverPid == nil
@@ -18,5 +18,11 @@ Neovim.plugin do |plug|
       browserPid = browser.pid
       Process.detach(browserPid)
     end
+  end
+  
+  plug.command(:SketchPreviewStop) do
+    Process.kill(:KILL, serverPid)
+    Process.kill(:KILL, browserPid)
+    serverPid, browserPid = nil
   end
 end
