@@ -1,4 +1,5 @@
 require 'neovim'
+require 'fileutils'
 
 require_relative '../../src/utils'
 
@@ -14,11 +15,12 @@ Neovim.plugin do |plug|
     end
   end
 
+  # preview
   plug.command(:SketchPreview) do |nvim|
-    dir = nvim.command_output(:pwd)
+    cwd = nvim.command_output(:pwd)
   
     if serverPid == nil
-      serverPid = spawn("browser-sync start --no-open --no-ui --no-notify --port #{port} -w -f --server #{dir}")
+      serverPid = spawn("browser-sync start --no-open --no-ui --no-notify --port #{port} -w -f --server #{cwd}")
     end
 
     if browserPid == nil
@@ -29,5 +31,18 @@ Neovim.plugin do |plug|
   plug.command(:SketchPreviewStop) do
     kill(serverPid, browserPid)
     serverPid, browserPid = nil
+  end
+
+  # template file
+  plug.command(:P5Template) do |nvim|
+    cwd = nvim.command_output(:pwd)
+    tail = nvim.command_output(":echo expand('%:t')")
+
+    FileUtils.cp(File.expand_path('../../template/index.html', File.dirname(__FILE__)), cwd)
+    path = File.join(cwd, 'index.html')
+
+    lines = File.readlines(path)
+    lines[20] = "    <script src=\"#{tail}\"></script>"
+    File.open(path, 'w') { |f| f.write(lines.join) }
   end
 end
