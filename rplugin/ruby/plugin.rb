@@ -35,14 +35,10 @@ Neovim.plugin do |plug|
 
   # template file
   plug.command(:P5Template) do |nvim|
-    cwd = nvim.command_output(:pwd)
-    tail = nvim.command_output(":echo expand('%:t')")
-
-    FileUtils.cp(File.expand_path('../../template/index.html', File.dirname(__FILE__)), cwd)
-    path = File.join(cwd, 'index.html')
-
-    lines = File.readlines(path)
-    lines[20] = "    <script src=\"#{tail}\"></script>"
-    File.open(path, 'w') { |f| f.write(lines.join) }
+    path = File.expand_path('../../template/index.html', File.dirname(__FILE__))
+    
+    lines = File.readlines(path).map{ |l| l.chomp }
+    index = nvim.current.buffer.line_number
+    nvim.current.buffer.set_lines(index-1, index-1, false, lines)
   end
 end
