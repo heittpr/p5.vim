@@ -33,12 +33,15 @@ Neovim.plugin do |plug|
     serverPid, browserPid = nil
   end
 
-  # template file
+  # template files
   plug.command(:P5Template) do |nvim|
-    path = File.expand_path('../../template/index.html', File.dirname(__FILE__))
-    
-    lines = File.readlines(path).map{ |l| l.chomp }
-    index = nvim.current.buffer.line_number
-    nvim.current.buffer.set_lines(index-1, index-1, false, lines)
+    e = nvim.command_output(":echo expand('%:e')")
+
+    case e
+    when 'js'
+      insert_template('sketch.js', nvim)
+    when 'html'
+      insert_template('index.html', nvim)
+    end
   end
 end
