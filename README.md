@@ -6,7 +6,14 @@
 	<img src="media/demo.gif">
 </p>
 
-### Installation
+
+### requirements
+
+- [neovim-ruby](https://github.com/neovim/neovim-ruby)
+- [chromium](https://www.chromium.org/)
+- [browser-sync](https://www.browsersync.io/)
+
+### installing
 
 Using [vim-plug](https://github.com/junegunn/vim-plug): 
 
