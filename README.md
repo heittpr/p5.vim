@@ -2,7 +2,9 @@
 
 *Live preview and utilities for p5.js sketches in neovim*
 
-![](media/demo.gif)
+<p align="center">
+	<img src="media/demo.gif">
+</p>
 
 ### Installation
 
