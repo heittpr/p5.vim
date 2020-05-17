@@ -23,5 +23,5 @@ def insert_template(name, nvim)
   buffer = nvim.current.buffer
   index = buffer.line_number
 
-  buffer.set_lines(index-1, index-1, false, lines)
+  buffer.set_lines(index-1, index, false, lines)
 end
