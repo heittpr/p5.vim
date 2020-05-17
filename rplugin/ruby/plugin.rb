@@ -35,6 +35,10 @@ Neovim.plugin do |plug|
     serverPid, browserPid = nil
   end
 
+  plug.command(:P5ServerStatus) do |nvim|
+    nvim.command("echo 'pid: #{serverPid} | port: #{port}'")
+  end
+
   # template files
   plug.command(:P5Template) do |nvim|
     e = nvim.command_output(":echo expand('%:e')")
