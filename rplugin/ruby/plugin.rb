@@ -16,7 +16,7 @@ Neovim.plugin do |plug|
   end
 
   # preview
-  plug.command(:SketchPreview) do |nvim|
+  plug.command(:P5Preview) do |nvim|
     cwd = nvim.command_output(:pwd)
   
     if serverPid == nil
@@ -28,7 +28,7 @@ Neovim.plugin do |plug|
     end
   end
   
-  plug.command(:SketchPreviewStop) do
+  plug.command(:P5PreviewStop) do
     kill(serverPid, browserPid)
     serverPid, browserPid = nil
   end
