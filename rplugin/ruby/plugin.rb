@@ -30,9 +30,15 @@ Neovim.plugin do |plug|
     nvim.command("echo 'server running on port #{port}'")
   end
   
-  plug.command(:P5PreviewStop) do
-    kill(serverPid, browserPid)
-    serverPid, browserPid = nil
+  plug.command(:P5PreviewStop) do |nvim|
+    if serverPid != nil
+      kill(serverPid, browserPid)
+      serverPid, browserPid = nil
+    
+      nvim.command("echo 'server terminated'")
+    else
+      nvim.command("echo 'the server is not running'")
+    end
   end
 
   plug.command(:P5ServerStatus) do |nvim|

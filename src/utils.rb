@@ -15,7 +15,11 @@ def spawn(cmd)
 end
 
 def kill(*pids)
-  pids.each{ |pid| Process.kill(:KILL, pid)}
+  pids.each{ |pid|
+    begin
+      Process.kill(:KILL, pid)
+    rescue Errno::ESRCH; end
+  }
 end
 
 def insert_template(name, nvim)
