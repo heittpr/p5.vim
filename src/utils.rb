@@ -1,3 +1,5 @@
+require 'socket'
+
 def exists(cmd)
   system "which #{cmd} > /dev/null 2>&1"
 end
@@ -24,4 +26,13 @@ def insert_template(name, nvim)
   index = buffer.line_number
 
   buffer.set_lines(index-1, index, false, lines)
+end
+
+def get_random_port
+  s = Socket.new(:INET, :STREAM, 0)
+  s.bind(Addrinfo.tcp('127.0.0.1', 0))
+  port = s.local_address.ip_port
+  s.close
+  
+  port
 end

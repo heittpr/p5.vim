@@ -5,7 +5,7 @@ require_relative '../../src/utils'
 
 requirements = ['browser-sync', 'chromium']
 serverPid, browserPid = nil
-port = 8080
+port = get_random_port
 
 Neovim.plugin do |plug|
   # check dependencies
@@ -18,7 +18,7 @@ Neovim.plugin do |plug|
   # preview
   plug.command(:P5Preview) do |nvim|
     cwd = nvim.command_output(:pwd)
-  
+
     if serverPid == nil
       serverPid = spawn("browser-sync start --no-open --no-ui --no-notify --port #{port} -w -f --server #{cwd}")
     end
