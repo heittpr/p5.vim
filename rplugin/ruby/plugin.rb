@@ -26,6 +26,8 @@ Neovim.plugin do |plug|
     if browserPid == nil
       browserPid = spawn("chromium --app=http://localhost:#{port}")
     end
+
+    nvim.command("echo 'server running on port #{port}'")
   end
   
   plug.command(:P5PreviewStop) do
