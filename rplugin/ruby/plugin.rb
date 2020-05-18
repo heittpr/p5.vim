@@ -42,7 +42,11 @@ Neovim.plugin do |plug|
   end
 
   plug.command(:P5ServerStatus) do |nvim|
-    nvim.command("echo 'pid: #{serverPid} | port: #{port}'")
+    if serverPid != nil
+      nvim.command("echo 'pid: #{serverPid} | port: #{port}'")
+    else
+      nvim.command("echo 'the server is not running'")
+    end
   end
 
   # template files
