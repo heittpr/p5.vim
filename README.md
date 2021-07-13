@@ -18,6 +18,5 @@
 Using [vim-plug](https://github.com/junegunn/vim-plug): 
 
 ```vim
-Plug 'https://github.com/homembaixinho/p5.vim'
+Plug 'https://github.com/heittpr/p5.vim'
 ```
-
