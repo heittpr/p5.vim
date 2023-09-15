@@ -1,3 +1,7 @@
+**Notice**: this project is unmaintained. See https://github.com/heittpr/p5.vim/issues/2#issuecomment-1720329395
+
+---
+
 # p5.vim
 
 *Live preview and utilities for p5.js sketches in neovim*
